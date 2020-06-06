@@ -20,7 +20,7 @@ def gdsGen(nD,t = 'a' ):
         m = min(row,col)
         n = min(row,col)
     else:
-        print nD.isCircular
+        #print nD.isCircular
         m = min(row,col)
         n = min(row,col)*3
     t = time.time()
@@ -60,7 +60,7 @@ def gdsGen(nD,t = 'a' ):
                     phase = np.max(metaData.Data[nD.wl][5])
                 elif phase <= np.min(metaData.Data[nD.wl][5]):
                     phase = np.min(metaData.Data[nD.wl][5])
-                r = round((f1(phase)),1)
+                r = np.round((f1(phase)),1)
                 if r not in d:
                     c = core.Cell('cell'+str(r))
                     
