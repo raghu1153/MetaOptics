@@ -1,4 +1,4 @@
-<pre>
+
 # MetaOptics
 
 (C) 2019-2021 Raghu Dharmavarapu. This is free software, released under the CC - BY - NC 4.0 license.
@@ -23,5 +23,5 @@ Steps: a. Clone the repo.
 8. imageio
 
 The source files can be found in the src folder. The main python file of the software is metaOptics.py, which contains all the code for GUI and framework of the software. The metaData.py file contains the FDTD Transmission phase vs varying dimensions for some standard wavelengths. The gdsModule.py file will contain the code that converts the phase profiles in PNG/JPG fromats to metasurface GDSII layouts.
-</pre>
+
 
