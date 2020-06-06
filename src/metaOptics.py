@@ -18,7 +18,6 @@ from scipy import misc
 import imageio
 import os
 from tkinter.ttk import *
-#from ttk import Progressbar
 import metaData
 import gdsModule
 import xlrd
