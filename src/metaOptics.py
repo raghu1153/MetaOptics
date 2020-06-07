@@ -17,7 +17,8 @@ import numpy as np
 from scipy import misc
 import imageio
 import os
-from tkinter.ttk import *
+import tkinter.ttk as ttk
+from tkinter.ttk import Progressbar
 import metaData
 import gdsModule
 import xlrd
@@ -52,32 +53,31 @@ def destroyer():
 
 root.protocol("WM_DELETE_WINDOW", destroyer)
 
-
 ###Styling###
-style = Style(root)
+style = ttk.Style(root)
 style.theme_use("clam")
 style.configure('Small.TButton', font = ("Times 10 bold"))
 style.configure('user.TButton', font = ("Times 12 bold"),background = 'SkyBlue2')
 style.configure('TButton', fg='white',background ='RoyalBlue1',activefg = 'black', font = ("Times 15 bold"),bordercolor = 'blue')
 style.configure("TProgressbar", foreground= 'black', background='forest green')
-style.configure('TLabel', foreground='black',background = 'RoyalBlue1',font = ("Times 13"))
+style.configure('TLabel', foreground='black',background = 'gray95',font = ("Times 13"))
 
 
 ###Starting Window###
 root.title('MetaOptics')
-root.geometry("736x610") #You want the size of the app to be 620x400
-if "nt" == os.name:
+root.geometry("780x610") #You want the size of the app to be 620x400
+if "nt" == os.name: # For windows
     root.wm_iconbitmap(resource_path(logo.ico))
 #else:
     #ilogoImg = PhotoImage(file=logo.ico)
     #root.iconphoto('wm', 'iconphoto', root._w, img)
-#root.iconbitmap(resource_path('logo.ico'))
+#root.iconbitmap('@logo.xbm')
 root.resizable(0, 0) #Don't allow resizing in the x or y direction
 fileLoc = StringVar(root)
 tFrame = tkinter.Frame(root, borderwidth = 3, bg = 'RoyalBlue1') 
 tFrame.pack( fill = X)
 tFrame.bind("<1>", lambda event: tFrame.focus_set())
-mFrame = tkinter.Frame(root, borderwidth = 3,bg = 'gray95') 
+mFrame = tkinter.Frame(root, borderwidth = 3, bg = 'gray95') 
 mFrame.pack( fill = X,expand=True)
 mFrame.bind("<1>", lambda event: mFrame.focus_set())
 bFrame = tkinter.Frame(root,borderwidth = 3,bg = 'gray88', pady = 10)
@@ -92,7 +92,7 @@ if m > 690:
     scale = 690.0/m
     rm = rm.resize((int(width*scale), int(height*scale)), Image.ANTIALIAS)
 rm = ImageTk.PhotoImage(rm)
-redLabel = tkinter.Label(mFrame,image = rm)
+redLabel = Label(mFrame,image = rm)
 redLabel.image = rm
 redLabel.pack(pady = 10)
 
@@ -125,13 +125,13 @@ def Previous():
     tfg = 'black'
     fgcol = {1:['white',tfg,tfg,tfg],2:[tfg,'white',tfg,tfg],3:[tfg,tfg,'white',tfg],4:[tfg,tfg,tfg,'white']}
     bgcol = {1:['RoyalBlue3',tbg,tbg,tbg],2:[tbg,'RoyalBlue3',tbg,tbg],3:[tbg,tbg,'RoyalBlue3',tbg],4:[tbg,tbg,tbg,'RoyalBlue3']}
-    tl1 = tkinter.Label(tFrame, text="Wavelength",borderwidth=2, font = 'Times 13 bold', fg=fgcol[i][0],bg = bgcol[i][0], padx = 5,pady = 5)
+    tl1 = Label(tFrame, text="Wavelength",borderwidth=2,  font = 'Times 13 bold', fg=fgcol[i][0],bg = bgcol[i][0], padx = 5,pady = 5)
     tl1.grid(row = 0, column = 0, padx = 50)
-    tl1 = tkinter.Label(tFrame, text="Phase curve", borderwidth=2, font = 'Times 13 bold', fg=fgcol[i][1],bg = bgcol[i][1],padx = 5,pady = 5)
+    tl1 = Label(tFrame, text="Phase curve", borderwidth=2, font = 'Times 13 bold', fg=fgcol[i][1],bg = bgcol[i][1],padx = 5,pady = 5)
     tl1.grid(row = 0, column = 1, padx = 20)
-    tl1 = tkinter.Label(tFrame, text="Phase Design", borderwidth=2, font = 'Times 13 bold', fg=fgcol[i][2],bg = bgcol[i][2],padx = 5,pady = 5)
+    tl1 = Label(tFrame, text="Phase Design", borderwidth=2, font = 'Times 13 bold', fg=fgcol[i][2],bg = bgcol[i][2],padx = 5,pady = 5)
     tl1.grid(row = 0, column = 2, padx = 20)
-    tl1 = tkinter.Label(tFrame, text="GDSII Design",borderwidth=2, font = 'Times 13 bold', fg=fgcol[i][3],bg = bgcol[i][3],padx = 5,pady = 5)
+    tl1 = Label(tFrame, text="GDSII Design",borderwidth=2, font = 'Times 13 bold', fg=fgcol[i][3],bg = bgcol[i][3],padx = 5,pady = 5)
     tl1.grid(row = 0, column = 3, padx = 50)
     tFrame.columnconfigure(2, weight=1)
     tFrame.columnconfigure(1, weight=1)
@@ -166,13 +166,13 @@ def Next():
     tfg = 'black'
     fgcol = {1:['white',tfg,tfg,tfg],2:[tfg,'white',tfg,tfg],3:[tfg,tfg,'white',tfg],4:[tfg,tfg,tfg,'white']}
     bgcol = {1:['RoyalBlue3',tbg,tbg,tbg],2:[tbg,'RoyalBlue3',tbg,tbg],3:[tbg,tbg,'RoyalBlue3',tbg],4:[tbg,tbg,tbg,'RoyalBlue3']}
-    tl1 = tkinter.Label(tFrame, text="Wavelength",borderwidth=2, font = 'Times 13 bold', fg=fgcol[i][0],bg = bgcol[i][0], padx = 5,pady = 5)
+    tl1 = Label(tFrame, text="Wavelength",borderwidth=2, font = 'Times 13 bold', fg=fgcol[i][0],bg = bgcol[i][0], padx = 5,pady = 5)
     tl1.grid(row = 0, column = 0, padx = 50)
-    tl1 = tkinter.Label(tFrame, text="Phase curve", borderwidth=2, font = 'Times 13 bold', fg=fgcol[i][1],bg = bgcol[i][1],  padx = 5,pady = 5)
+    tl1 = Label(tFrame, text="Phase curve", borderwidth=2, font = 'Times 13 bold', fg=fgcol[i][1],bg = bgcol[i][1],  padx = 5,pady = 5)
     tl1.grid(row = 0, column = 1, padx = 20)
-    tl1 = tkinter.Label(tFrame, text="Phase Design", borderwidth=2, font = 'Times 13 bold', fg=fgcol[i][2],bg = bgcol[i][2], padx = 5,pady = 5)
+    tl1 = Label(tFrame, text="Phase Design", borderwidth=2, font = 'Times 13 bold', fg=fgcol[i][2],bg = bgcol[i][2], padx = 5,pady = 5)
     tl1.grid(row = 0, column = 2, padx = 20)
-    tl1 = tkinter.Label(tFrame, text="GDSII Design",borderwidth=2, font = 'Times 13 bold', fg=fgcol[i][3],bg = bgcol[i][3], padx = 5,pady = 5)
+    tl1 = Label(tFrame, text="GDSII Design",borderwidth=2, font = 'Times 13 bold', fg=fgcol[i][3],bg = bgcol[i][3], padx = 5,pady = 5)
     tl1.grid(row = 0, column = 3, padx = 50)
     tFrame.columnconfigure(2, weight=1)
     tFrame.columnconfigure(1, weight=1)
@@ -189,34 +189,34 @@ def Next():
             um = ''
             Next()
         if nD.isUserData == 0:    
-            tkinter.Label(mFrame,text = "Visible", font = 'Times 15 bold underline').grid(row = 0, column = 1, padx =40)
-            tkinter.Label(mFrame,text = "Infrared", font = 'Times 15 bold underline').grid(row = 0, column = 2, padx =40)
-            tkinter.Label(mFrame,text = "Tera Hertz", font = 'Times 15 bold underline').grid(row = 0, column = 3, padx =40)
+            Label(mFrame,text = "Visible", bg = 'gray95',  font = 'Times 15 bold underline').grid(row = 0, column = 1, padx =40)
+            Label(mFrame,text = "Infrared", bg = 'gray95', font = 'Times 15 bold underline').grid(row = 0, column = 2, padx =40)
+            Label(mFrame,text = "Tera Hertz", bg = 'gray95', font = 'Times 15 bold underline').grid(row = 0, column = 3, padx =40)
             mFrame.grid_columnconfigure(0, weight=1)
             mFrame.grid_columnconfigure(4, weight=1)
-            R11 = tkinter.Radiobutton(mFrame, text="405 nm", variable=r, value=405,font = 'Times 12 ')
+            R11 = Radiobutton(mFrame, bg = 'gray95', text="405 nm", variable=r, value=405,font = 'Times 12 ')
             R11.grid(row = 1, column = 1, sticky = W,padx = 40, pady = 5)
-            R21 = tkinter.Radiobutton(mFrame, text="532 nm", variable=r, value=532,font = 'Times 12 ')
+            R21 = Radiobutton(mFrame, bg = 'gray95', text="532 nm", variable=r, value=532,font = 'Times 12 ')
             R21.grid(row = 2, column = 1, sticky = W,padx =40, pady = 10)
-            R31 = tkinter.Radiobutton(mFrame, text="633 nm", variable=r, value=633,font = 'Times 12 ')
+            R31 = Radiobutton(mFrame, bg = 'gray95', text="633 nm", variable=r, value=633,font = 'Times 12 ')
             R31.grid(row = 3, column = 1, sticky = W,padx = 40, pady = 5)
-            R41 = tkinter.Radiobutton(mFrame, text="715 nm", variable=r, value=715,font = 'Times 12 ')
+            R41 = Radiobutton(mFrame, bg = 'gray95', text="715 nm", variable=r, value=715,font = 'Times 12 ')
             R41.grid(row = 4, column = 1, sticky = W,padx = 40, pady = 5)
-            R51 = tkinter.Radiobutton(mFrame, text="850 nm", variable=r, value=850,font = 'Times 12 ')
+            R51 = Radiobutton(mFrame, bg = 'gray95', text="850 nm", variable=r, value=850,font = 'Times 12 ')
             R51.grid(row = 5, column = 1, sticky = W,padx = 40, pady = 5)
             
             
-            R12 = tkinter.Radiobutton(mFrame, text="1064 nm", variable=r, value=1064,font = 'Times 12 ')
+            R12 = Radiobutton(mFrame, bg = 'gray95', text="1064 nm", variable=r, value=1064,font = 'Times 12 ')
             R12.grid(row = 1, column = 2, sticky = W,padx = 40, pady = 10)
-            R22 = tkinter.Radiobutton(mFrame, text= u"8.8 \u03bcm", variable=r, value=8800,font = 'Times 12 ')
+            R22 = Radiobutton(mFrame, bg = 'gray95', text= u"8.8 \u03bcm", variable=r, value=8800,font = 'Times 12 ')
             R22.grid(row = 2, column = 2, sticky = W,padx = 40, pady = 5)
             
-            R13 = tkinter.Radiobutton(mFrame, text= u"410 \u03bcm", variable=r, value=410000,font = 'Times 12 ')
+            R13 = Radiobutton(mFrame, bg = 'gray95', text= u"410 \u03bcm", variable=r, value=410000,font = 'Times 12 ')
             R13.grid(row = 1, column = 3, sticky = W,padx = 40, pady = 10)
             
-            message = tkinter.Label(mFrame, text = mes, font = 'calibri 12 bold', fg = 'red')
-            message.grid(row = 6,column = 0,columnspan = 3,sticky = S+W,pady = (230,5),padx = 20)
-            userInput = Button(mFrame,text = 'Upload my data', command = userData,style = 'user.TButton')
+            message = Label(mFrame, bg = 'gray95', text = mes, font = 'calibri 12 bold', fg = 'red')
+            message.grid(row = 6,column = 0,columnspan = 3,sticky = S+W,pady = (250,5),padx = 20)
+            userInput = ttk.Button(mFrame,text = 'Upload my data', command = userData,style = 'user.TButton')
             userInput.grid(row = 6,column = 4,sticky = S+E,pady = (0,10),padx = 20)
             
             
@@ -286,7 +286,7 @@ def Next():
                     workbook = xlrd.open_workbook(userDataLoc)
                     sheet =  workbook.sheets()[0]
                     for i in range(sheet.nrows):
-                        if type(sheet.row_values(i)[0]) == unicode or type(sheet.row_values(i)[1]) == unicode:
+                        if type(sheet.row_values(i)[0]) == str or type(sheet.row_values(i)[1]) == str:
                             um = 'Error: Data cannot be strings and both x y data must be equal length'
                             uMessage.config(text = um,fg = 'red')
                             uMessage.text = um
@@ -329,64 +329,64 @@ def Next():
                     pass
             userShape.trace("w", shapeCh)
             userShape.set(nD.shape)
-            shapesMenu = OptionMenu(mFrame, userShape,shapesList[shapesList.index(nD.shape)], *shapesList)
+            shapesMenu = ttk.OptionMenu(mFrame, userShape,shapesList[shapesList.index(nD.shape)], *shapesList)
             shapesMenu.config(width=15)
             shapesMenu.grid(row = 0 , column = 1,padx = 20,sticky = W,pady = 20)
-            tkinter.Label(mFrame, text = 'Select a shape: ', font = 'Times 14').grid(row = 0, column = 0, padx = 20, pady = 20, sticky = W)
+            Label(mFrame, text = 'Select a shape: ', bg = 'gray95', font = 'Times 14').grid(row = 0, column = 0, padx = 20, pady = 20, sticky = W)
             
-            tkinter.Label(mFrame, text = 'Wavelength (nm): ', font = 'Times 14').grid(row = 0, column = 2, padx = 20, pady = 20, sticky = W)
+            Label(mFrame, text = 'Wavelength (nm): ', bg = 'gray95', font = 'Times 14').grid(row = 0, column = 2, padx = 20, pady = 20, sticky = W)
             global userWl
             userWl = IntVar()
             userWl.set(nD.wl)
             Entry(mFrame, textvariable = userWl, width = 12,cursor = 'xterm').grid(row = 0, column = 3, sticky = W, pady =20,padx = 20,columnspan = 2) 
             
-            tkinter.Label(mFrame, text = 'Period (nm): ', font = 'Times 14').grid(row = 1, column = 0, padx = 20, pady = 20, sticky = W)
+            Label(mFrame, text = 'Period (nm): ', bg = 'gray95', font = 'Times 14').grid(row = 1, column = 0, padx = 20, pady = 20, sticky = W)
             global userPeriod
             userPeriod = IntVar()
             userPeriod.set(nD.period)
             Entry(mFrame, textvariable = userPeriod, width = 12,cursor = 'xterm').grid(row = 1, column = 1, sticky = W, pady =20,padx = 20) 
             
-            tkinter.Label(mFrame, text = 'Height (nm): ', font = 'Times 14').grid(row = 2, column = 0, padx = 20, pady = 20, sticky = W)
+            Label(mFrame, text = 'Height (nm): ', bg = 'gray95', font = 'Times 14').grid(row = 2, column = 0, padx = 20, pady = 20, sticky = W)
             global userHeight
             userHeight = IntVar()
             userHeight.set(nD.height)
             Entry(mFrame, textvariable = userHeight, width = 12,cursor = 'xterm').grid(row = 2, column = 1, sticky = W, pady =20,padx = 20)
             
-            importData = Button(mFrame,text = 'Import Data', command = importData,style = 'user.TButton')
+            importData = ttk.Button(mFrame,text = 'Import Data', command = importData,style = 'user.TButton')
             importData.grid(row = 3,column = 0,sticky = W,pady = 20,padx = 20)
             
             cIm = imMaker(resource_path('Cross.png'),180)
-            cL = tkinter.Label(mFrame,image = cIm)
+            cL = Label(mFrame,bg = 'gray95', image = cIm)
             cL.imag = cIm
             cL.grid(row = 1, column = 2,columnspan = 1, sticky = W,rowspan = 2)
             
-            tkinter.Label(mFrame, text = 'W (nm): ', font = 'Times 12').grid(row = 1, column = 3, padx = 0, pady = 20, sticky = W,rowspan = 2)
+            Label(mFrame, text = 'W (nm): ', bg = 'gray95', font = 'Times 12').grid(row = 1, column = 3, padx = 0, pady = 20, sticky = W,rowspan = 2)
             global crossWidth
             crossWidth = IntVar()
             crossWidth.set(nD.crossW)
             Entry(mFrame, textvariable = crossWidth, width = 8,cursor = 'xterm').grid(row = 1, column = 4, sticky = W, pady =20,padx = 0,rowspan = 2)
             
             vIm = imMaker(resource_path('Fin.png'),220)
-            vL = tkinter.Label(mFrame,image = vIm)
+            vL = Label(mFrame,bg = 'gray95', image = vIm)
             vL.imag = vIm
             vL.grid(row = 3, column = 2,columnspan = 1, sticky = W,rowspan = 2)
             
-            tkinter.Label(mFrame, text = 'W (nm): ', font = 'Times 12').grid(row = 3, column = 3, padx = 0, pady = 20, sticky = W,rowspan = 1)
+            Label(mFrame, text = 'W (nm): ', bg = 'gray95', font = 'Times 12').grid(row = 3, column = 3, padx = 0, pady = 20, sticky = W,rowspan = 1)
             global finWidth
             finWidth = IntVar()
             finWidth.set(nD.fW)
             Entry(mFrame, textvariable = finWidth, width = 8,cursor = 'xterm').grid(row = 3, column = 4, sticky = W, pady =20,padx = 0,rowspan = 1)
             
             
-            tkinter.Label(mFrame, text = 'L (nm): ', font = 'Times 12').grid(row = 4, column = 3, padx = 0, pady = 20, sticky = W,rowspan = 1)
+            Label(mFrame, text = 'L (nm): ',bg = 'gray95', font = 'Times 12').grid(row = 4, column = 3, padx = 0, pady = 20, sticky = W,rowspan = 1)
             global finL
             finL = IntVar()
             finL.set(nD.fL)
             Entry(mFrame, textvariable = finL, width = 8,cursor = 'xterm').grid(row = 4, column = 4, sticky = W, pady =20,padx = 0,rowspan = 1)
             
-            tkinter.Label(mFrame, text = 'Instruction: Please enter phase data in degrees and dimensions in nanometers (degrees for Fin).', font = 'calibri 12 bold', fg = 'blue').grid(row = 5,column = 0,columnspan = 5,sticky = S+W,pady = (0,5),padx = 20)
+            Label(mFrame, text = 'Instruction: Please enter phase data in degrees and dimensions in nanometers (degrees for Fin).', bg = 'gray95', font = 'calibri 10 bold', fg = 'blue').grid(row = 5,column = 0,columnspan = 5,sticky = S+W,pady = (0,5),padx = 20)
             #um = 'Phase data must be uploaded in degrees and dimensions in nanometers!'
-            uMessage = tkinter.Label(mFrame, text = um, font = 'calibri 12 bold', fg = 'red')
+            uMessage = Label(mFrame, text = um, bg = 'gray95', font = 'calibri 12 bold', fg = 'red')
             uMessage.grid(row = 6,column = 0,columnspan = 4,sticky = S+W,pady = (10,5),padx = 20)
             nD.state = 1
 
@@ -498,7 +498,7 @@ def Next():
             PlotIm = ImageTk.PhotoImage(pltIm)
                     
             ###Image space###
-            Plotlabel = tkinter.Label(mFrame, image = PlotIm, padx = 165)
+            Plotlabel = Label(mFrame, bg = 'gray95', image = PlotIm, padx = 165)
             Plotlabel.image = PlotIm
             Plotlabel.grid(row=0, column=0,rowspan= 7,sticky = W)    
         
@@ -508,13 +508,13 @@ def Next():
             #plot_widget.grid(row=0, column=0,rowspan= 6,sticky = W)   
             
               
-            tkinter.Label(mFrame,text = "Design parameters", font = 'Times 14 bold underline').grid(row = 0, column = 1,sticky = E)
-            tkinter.Label(mFrame,text = "Wavelength: "+str(nD.wl)+' nm', font = 'Times 14 ').grid(row = 1, column = 1,sticky = E)
-            tkinter.Label(mFrame,text = "Height: "+str(nD.height)+" nm", font = 'Times 14 ').grid(row = 2, column = 1,sticky = E)
-            tkinter.Label(mFrame,text = "Width: "+str(nD.crossW)+" nm", font = 'Times 14 ').grid(row = 3, column = 1,sticky = E)
-            tkinter.Label(mFrame,text = param, font = 'Times 14  ').grid(row = 4, column = 1,sticky = E)
-            tkinter.Label(mFrame,text = "Material: "+str(nD.material), font = 'Times 14  ').grid(row = 5, column = 1,sticky = E)
-            tkinter.Label(mFrame,text = "Shape: "+nD.shape, font = 'Times 14  ').grid(row = 6, column = 1,sticky = E)
+            Label(mFrame,text = "Design parameters", bg = 'gray95', font = 'Times 14 bold underline').grid(row = 0, column = 1,sticky = E)
+            Label(mFrame,text = "Wavelength: "+str(nD.wl)+' nm', bg = 'gray95', font = 'Times 14 ').grid(row = 1, column = 1,sticky = E)
+            Label(mFrame,text = "Height: "+str(nD.height)+" nm", bg = 'gray95', font = 'Times 14 ').grid(row = 2, column = 1,sticky = E)
+            Label(mFrame,text = "Width: "+str(nD.crossW)+" nm", bg = 'gray95', font = 'Times 14 ').grid(row = 3, column = 1,sticky = E)
+            Label(mFrame,text = param, bg = 'gray95', font = 'Times 14  ').grid(row = 4, column = 1,sticky = E)
+            Label(mFrame,text = "Material: "+str(nD.material), bg = 'gray95', font = 'Times 14  ').grid(row = 5, column = 1,sticky = E)
+            Label(mFrame,text = "Shape: "+nD.shape, bg = 'gray95', font = 'Times 14  ').grid(row = 6, column = 1,sticky = E)
     elif i==3:
         if mes ==  'Select a wavelength!':
             mes = ' '
@@ -760,25 +760,25 @@ def Next():
                     mes = ' '
                     message.config(text = mes)
                     message.text = mes
-        tkinter.Label(mFrame,text = 'Unitcells per pixel',font = 'Times 13').grid(row = 0, column = 0, sticky = W, pady = (0,10)) 
+        Label(mFrame,text = 'Unitcells per pixel',bg = 'gray95', font = 'Times 13').grid(row = 0, column = 0, sticky = W, pady = (0,10)) 
         global ol1,ol2
         ol1 = ["1x1","2x2","3x3","4x4","5x5","6x6"]
         global dv1
         global dv2
         dv1=StringVar(root)
         dv1.set(nD.px)
-        pm1 = OptionMenu(mFrame, dv1,ol1[int(nD.px[0])-1], *ol1)
+        pm1 = ttk.OptionMenu(mFrame, dv1,ol1[int(nD.px[0])-1], *ol1)
         pm1.config(width=7)
         pm1.grid(row = 0 , column = 1, pady = (0,10),padx = 40)
-        tkinter.Label(mFrame,text = 'Phase levels',font = 'Times 13').grid(row = 1, column = 0, sticky = W, pady = (0,10)) 
+        Label(mFrame,text = 'Phase levels',bg = 'gray95', font = 'Times 13').grid(row = 1, column = 0, sticky = W, pady = (0,10)) 
         ol2 = [2,4,8,16]
         dv2 = IntVar(root)
         dv2.set(nD.lev)
-        pm2 = OptionMenu(mFrame, dv2,ol2[ol2.index(nD.lev)], *ol2)
+        pm2 = ttk.OptionMenu(mFrame, dv2,ol2[ol2.index(nD.lev)], *ol2)
         pm2.config(width=7)
         pm2.grid(row = 1 , column = 1, pady = (0,10),padx = 40)
-        tkinter.Label(mFrame,text = 'Phase min(deg.)',font = 'Times 13').grid(row = 2, column = 0, sticky = W, pady = (0,10)) 
-        tkinter.Label(mFrame,text = 'Phase max(deg.)',font = 'Times 13').grid(row = 3, column = 0, sticky = W, pady = (0,10)) 
+        Label(mFrame,text = 'Phase min(deg.)',bg = 'gray95', font = 'Times 13').grid(row = 2, column = 0, sticky = W, pady = (0,10)) 
+        Label(mFrame,text = 'Phase max(deg.)',bg = 'gray95', font = 'Times 13').grid(row = 3, column = 0, sticky = W, pady = (0,10)) 
         global minPh
         minPh = IntVar(root)
         minPh.set(nD.minph)
@@ -790,27 +790,27 @@ def Next():
         global checkVar
         checkVar = IntVar(root)
         checkVar.set(nD.isCircular)
-        tkinter.Checkbutton(mFrame, text="Apply circular aperture", variable=checkVar,font = 'Times 13').grid(row = 4, column = 0,columnspan = 2, sticky = W, pady = (0,10),padx = 0)
+        tkinter.Checkbutton(mFrame, text="Apply circular aperture", bg = 'gray95', variable=checkVar,font = 'Times 13').grid(row = 4, column = 0,columnspan = 2, sticky = W, pady = (0,10),padx = 0)
         
-        message = tkinter.Label(mFrame, text = mes, font = 'calibri 12 bold', fg = 'red')
+        message = Label(mFrame, text = mes,bg = 'gray95',  font = 'calibri 12 bold', fg = 'red')
         message.grid(row = 5,column = 0,columnspan = 2,sticky = W,pady = (75,5))
         
         
-        importPhase = Button(mFrame,text = 'Import Phase', command =  handler,width = 14, takefocus=False)
+        importPhase = ttk.Button(mFrame,text = 'Import Phase', command =  handler,width = 14, takefocus=False)
         importPhase.grid(row = 6, column = 0,columnspan = 2,padx = (15,0),sticky = W)
         
         ###Image space###
-        label = tkinter.Label(mFrame, padx = 165)
+        label = Label(mFrame, bg = 'gray95', padx = 165)
         label.grid(row = 0, column = 2, rowspan = 7,columnspan = 4)
         
         
-        tkinter.Label(mFrame, text = '-------------------------------------------Library Functions-------------------------------------------',fg='blue',font = 'Times 14  italic').grid(row  = 7,column =0,columnspan = 6,pady = (15,0))
+        Label(mFrame, text = '-------------------------------------------Library Functions-------------------------------------------',bg = 'gray95', fg='blue',font = 'Times 14  italic').grid(row  = 7,column =0,columnspan = 6,pady = (15,0))
         #mFrame.columnconfigure(0, weight=1)
-        R1 = tkinter.Radiobutton(mFrame, text="FZL", variable=r2, value=1,font = 'Times 14  underline bold ')
+        R1 = Radiobutton(mFrame, text="FZL", bg = 'gray95', variable=r2, value=1,font = 'Times 14  underline bold ')
         R1.grid(row = 8, column = 0,pady = (0,0),columnspan = 2)
-        R2 = tkinter.Radiobutton(mFrame, text="Axicon", variable=r2, value=2,font = 'Times 14  underline bold ')
+        R2 = Radiobutton(mFrame, text="Axicon", bg = 'gray95', variable=r2, value=2,font = 'Times 14  underline bold ')
         R2.grid(row = 8, column = 2, pady = (0,0),columnspan = 2)
-        R3 = tkinter.Radiobutton(mFrame, text="SPP", variable=r2, value=3,font = 'Times 14  underline bold')
+        R3 = Radiobutton(mFrame, text="SPP", bg = 'gray95', variable=r2, value=3,font = 'Times 14  underline bold')
         R3.grid(row = 8, column = 4,pady = (0,0),columnspan = 2)
         
         ###FZL###
@@ -820,9 +820,9 @@ def Next():
         fzlf.set(nD.fzlF)
         fzldia = DoubleVar(root)
         fzldia.set(nD.fzlDia)
-        tkinter.Label(mFrame,text = 'Focal length(um): ',font = 'Times 13' ).grid(row = 9, column = 0,pady = 0,padx = 0,sticky = W)
+        Label(mFrame,text = 'Focal length(um): ',bg = 'gray95', font = 'Times 13' ).grid(row = 9, column = 0,pady = 0,padx = 0,sticky = W)
         Entry(mFrame, textvariable = fzlf, width = 8,cursor = 'xterm').grid(row = 9, column = 1, pady = 10) 
-        tkinter.Label(mFrame,text = 'Diameter (um):',font = 'Times 13' ).grid(row = 10, column = 0,pady = 0, padx = 0,sticky = W)
+        Label(mFrame,text = 'Diameter (um):',bg = 'gray95', font = 'Times 13' ).grid(row = 10, column = 0,pady = 0, padx = 0,sticky = W)
         Entry(mFrame, textvariable = fzldia, width = 8,cursor = 'xterm').grid(row = 10, column = 1,pady = 0) 
         
         ###Axicon###
@@ -832,9 +832,9 @@ def Next():
         alpha.set(nD.axialpha)
         dia = DoubleVar(root)
         dia.set(nD.axidia)
-        tkinter.Label(mFrame,text = 'Cone angle: ',font = 'Times 13' ).grid(row = 9, column = 2,pady = 0,sticky = W)
+        Label(mFrame,text = 'Cone angle: ',bg = 'gray95', font = 'Times 13' ).grid(row = 9, column = 2,pady = 0,sticky = W)
         Entry(mFrame, textvariable = alpha, width = 8,cursor = 'xterm').grid(row = 9, column = 3, pady = 0,padx= (20,0)) 
-        tkinter.Label(mFrame,text = 'Diameter (um):',font = 'Times 13' ).grid(row = 10, column = 2,pady = 0,sticky = W)
+        Label(mFrame,text = 'Diameter (um):',bg = 'gray95', font = 'Times 13' ).grid(row = 10, column = 2,pady = 0,sticky = W)
         Entry(mFrame, textvariable = dia, width = 8,cursor = 'xterm').grid(row = 10, column = 3, pady = 0,padx= (20,0)) 
         
         global sppl
@@ -843,16 +843,16 @@ def Next():
         sppl.set(nD.sppl)
         sppdia = DoubleVar(root)
         sppdia.set(nD.sppdia)
-        tkinter.Label(mFrame,text = 'Charge: ',font = 'Times 13' ).grid(row = 9, column = 4,pady = 0,padx = (20,20),sticky = W)
+        Label(mFrame,text = 'Charge: ',bg = 'gray95', font = 'Times 13' ).grid(row = 9, column = 4,pady = 0,padx = (20,20),sticky = W)
         Entry(mFrame, textvariable = sppl, width = 8,cursor = 'xterm').grid(row = 9 , column = 5, pady = 0,padx = (20,20))
-        tkinter.Label(mFrame,text = 'Diameter (um):',font = 'Times 13' ).grid(row = 10, column = 4,pady = 0, padx = (20,20),sticky = W)
+        Label(mFrame,text = 'Diameter (um):',bg = 'gray95', font = 'Times 13' ).grid(row = 10, column = 4,pady = 0, padx = (20,20),sticky = W)
         Entry(mFrame, textvariable = sppdia, width = 8,cursor = 'xterm').grid(row = 10, column = 5,pady = 0,padx = (20,20)) 
         
         
         mes2 = ' '
-        me2  = tkinter.Label(mFrame, text = mes2, font = 'calibri 12 bold', fg = 'red')
+        me2 = Label(mFrame, text = mes2, bg = 'gray95', font = 'calibri 10 bold', fg = 'red', pady = 25)
         me2.grid(row = 11,column = 0,columnspan = 5,sticky = W)
-        libGen = Button(mFrame,text = 'Generate', command =  libFunc,width = 10, takefocus=False,style = 'Small.TButton')
+        libGen = ttk.Button(mFrame,text = 'Generate', command =  libFunc,width = 10, takefocus=False,style = 'Small.TButton')
         libGen.grid(row = 11,column = 5,sticky = E,pady = (2,0),padx = (0,20))
         
         if nD.dLoc != None:
@@ -927,7 +927,7 @@ def Next():
                     scale = 1
                 globIm = im.resize((int(width*scale), int(height*scale)), Image.ANTIALIAS)
                 globIm = ImageTk.PhotoImage(globIm)
-                label = tkinter.Label(mFrame,image = globIm)
+                label = Label(mFrame,bg = 'gray95', image = globIm)
                 label.image = globIm
                 label.grid(padx = int((420-width*scale)/2),row = 0,column = 0,rowspan = 2)
                 mFrame.pack_propagate(0)
@@ -935,8 +935,8 @@ def Next():
                 progress=Progressbar(mFrame,orient=HORIZONTAL,variable=progressVar, maximum = 100, length = 290)
                 progress.grid(padx = 20,pady = 10,row = 2,column = 0)
                 nD.progress = progressVar
-                tkinter.Label(mFrame,text = 'Design parameters', font = 'Times 13 bold underline').grid(row = 0,column = 1,sticky = W)
-                Info = tkinter.Label(mFrame,text = 'Wavelength: '+str(nD.wl)+' nm\n\n'
+                Label(mFrame,text = 'Design parameters', bg = 'gray95', font = 'Times 13 bold underline').grid(row = 0,column = 1,sticky = W, pady = 5)
+                Info = Label(mFrame,text = 'Wavelength: '+str(nD.wl)+' nm\n\n'
                 'Unitcells per pixel: '+str(nD.px)+'\n\n'+
                 'Unitcell period: '+str(nD.period)+'\n\n'+
                 'Phase levels: '+str(nD.lev)+'\n\n'+
@@ -944,14 +944,14 @@ def Next():
                 'Pixels in Phase mask: '+ str(nD.design.shape[0])+' X '+str(nD.design.shape[1])+'\n\n'+
                 'Phase mask radius: '+str(min(nD.design.shape[0],nD.design.shape[1])*int(nD.px[0])*nD.period/1000)+' um\n\n'+
                 'Circular aperture applied: '+str(nD.isCircular == 1)+'\n\n',
-                font = 'Times 12',anchor=W,justify=LEFT)
+                bg = 'gray95',font = 'Times 12',anchor=W,justify=LEFT)
                 Info.grid(row = 1,column = 1 ,sticky = W+N)
                 
-                gds = Button(mFrame,text = 'Generate GDS', command =  gdsGen,width = 14, takefocus=False)
+                gds = ttk.Button(mFrame,text = 'Generate GDS', command =  gdsGen,width = 14, takefocus=False)
                 gds.grid(sticky = W,pady = 10,row = 2,column = 1)
-                tkinter.Label(mFrame,text = 'Design parameters', font = 'Times 13 bold underline').grid(row = 0,column = 1,sticky = W)
+                Label(mFrame,text = 'Design parameters', bg = 'gray95', font = 'Times 13 bold underline').grid(row = 0,column = 1,sticky = W)
                     
-                TimeInfo = tkinter.Label(mFrame, text = '',justify = LEFT, anchor = W,font = 'Times 12')
+                TimeInfo = Label(mFrame, text = '',justify = LEFT, anchor = W,bg = 'gray95', font = 'Times 12')
                 TimeInfo.grid(row = 3, column = 1, sticky = W)
                 nD.tLab = TimeInfo
                 
@@ -968,13 +968,13 @@ def gdsGen():
 def StartNew():
     for widget in mFrame.winfo_children():
         widget.destroy()
-    tl1 = tkinter.Label(tFrame, text="Wavelength", font = 'Times 13 bold',background = 'RoyalBlue1', padx = 5,pady = 5)
+    tl1 = Label(tFrame, text="Wavelength", font = 'Times 13 bold',background = 'RoyalBlue1', padx = 5,pady = 5)
     tl1.grid(row = 0, column = 0, padx = 50)
-    tl1 = tkinter.Label(tFrame, text="Phase curve", font = 'Times 13 bold',background = 'RoyalBlue1',padx = 5,pady = 5)
+    tl1 = Label(tFrame, text="Phase curve", font = 'Times 13 bold',background = 'RoyalBlue1',padx = 5,pady = 5)
     tl1.grid(row = 0, column = 1, padx = 20)
-    tl1 = tkinter.Label(tFrame, text="Phase Design",  font = 'Times 13 bold',background = 'RoyalBlue1',padx = 5,pady = 5)
+    tl1 = Label(tFrame, text="Phase Design",  font = 'Times 13 bold',background = 'RoyalBlue1',padx = 5,pady = 5)
     tl1.grid(row = 0, column = 2, padx = 20)
-    tl1 = tkinter.Label(tFrame, text="GDSII Design", font = 'Times 13 bold',background = 'RoyalBlue1',padx = 5,pady = 5)
+    tl1 = Label(tFrame, text="GDSII Design", font = 'Times 13 bold',background = 'RoyalBlue1',padx = 5,pady = 5)
     tl1.grid(row = 0, column = 3, padx = 50)
     tFrame.columnconfigure(2, weight=1)
     tFrame.columnconfigure(1, weight=1)
@@ -985,7 +985,7 @@ def StartNew():
         scale = 690.0/m
         rm = rm.resize((int(width*scale), int(height*scale)), Image.ANTIALIAS)
     rm = ImageTk.PhotoImage(rm)
-    iL = tkinter.Label(mFrame,image = rm)
+    iL = Label(mFrame,image = rm)
     iL.image = rm
     iL.pack(pady = 10)
     nD.state = 0
@@ -1019,13 +1019,13 @@ def StartNew():
 def about():
     for widget in mFrame.winfo_children():
         widget.destroy()
-    tl1 = tkinter.Label(tFrame, text="Wavelength", font = 'Times 13 bold',background = 'RoyalBlue1', padx = 5,pady = 5)
+    tl1 = Label(tFrame, text="Wavelength", font = 'Times 13 bold',background = 'RoyalBlue1', padx = 5,pady = 5)
     tl1.grid(row = 0, column = 0, padx = 50)
-    tl1 = tkinter.Label(tFrame, text="Phase curve", font = 'Times 13 bold',background = 'RoyalBlue1',padx = 5,pady = 5)
+    tl1 = Label(tFrame, text="Phase curve", font = 'Times 13 bold',background = 'RoyalBlue1',padx = 5,pady = 5)
     tl1.grid(row = 0, column = 1, padx = 20)
-    tl1 = tkinter.Label(tFrame, text="Phase Design",  font = 'Times 13 bold',background = 'RoyalBlue1',padx = 5,pady = 5)
+    tl1 = Label(tFrame, text="Phase Design",  font = 'Times 13 bold',background = 'RoyalBlue1',padx = 5,pady = 5)
     tl1.grid(row = 0, column = 2, padx = 20)
-    tl1 = tkinter.Label(tFrame, text="GDSII Design", font = 'Times 13 bold',background = 'RoyalBlue1',padx = 5,pady = 5)
+    tl1 = Label(tFrame, text="GDSII Design", font = 'Times 13 bold',background = 'RoyalBlue1',padx = 5,pady = 5)
     tl1.grid(row = 0, column = 3, padx = 50)
     tFrame.columnconfigure(2, weight=1)
     tFrame.columnconfigure(1, weight=1)
@@ -1036,7 +1036,7 @@ def about():
         scale = 689.0/m
         rm = rm.resize((int(width*scale), int(height*scale)), Image.ANTIALIAS)
     rm = ImageTk.PhotoImage(rm)
-    iL = tkinter.Label(mFrame,image = rm)
+    iL = Label(mFrame,image = rm)
     iL.image = rm
     iL.pack(pady = 10) 
 
@@ -1084,27 +1084,27 @@ class Design():
 #######Main Layout and Buttons#####
 nD = Design()
 
-tl1 = tkinter.Label(tFrame, text="Wavelength", font = 'Times 13 bold', background = 'RoyalBlue1', padx = 5,pady = 5)
+tl1 = Label(tFrame, text="Wavelength", font = 'Times 13 bold', background = 'RoyalBlue1', padx = 5,pady = 5)
 tl1.grid(row = 0, column = 0, padx = 50)
-tl1 = tkinter.Label(tFrame, text="Phase curve",  font = 'Times 13 bold', background = 'RoyalBlue1',padx = 5,pady = 5)
+tl1 = Label(tFrame, text="Phase curve",  font = 'Times 13 bold', background = 'RoyalBlue1',padx = 5,pady = 5)
 tl1.grid(row = 0, column = 1, padx = 20)
-tl1 = tkinter.Label(tFrame, text="Phase Design",  font = 'Times 13 bold', background = 'RoyalBlue1',padx = 5,pady = 5)
+tl1 = Label(tFrame, text="Phase Design",  font = 'Times 13 bold', background = 'RoyalBlue1',padx = 5,pady = 5)
 tl1.grid(row = 0, column = 2, padx = 20)
-tl1 = tkinter.Label(tFrame, text="GDSII Design", font = 'Times 13 bold', background = 'RoyalBlue1',padx = 5,pady = 5)
+tl1 = Label(tFrame, text="GDSII Design", font = 'Times 13 bold', background = 'RoyalBlue1',padx = 5,pady = 5)
 tl1.grid(row = 0, column = 3, padx = 50)
 tFrame.columnconfigure(2, weight=1)
 tFrame.columnconfigure(1, weight=1)
 
 
-previous = Button(bFrame,text = 'About', command =  about,width = 14, takefocus=False)
-previous.grid(row = 0,column = 0, padx = 13)
+previous = ttk.Button(bFrame,text = 'About', command =  about,width = 14, takefocus=False)
+previous.grid(row = 0,column = 0, padx = 18)
 
-start = Button(bFrame,text = 'Start New', command =  StartNew,width = 14, takefocus=False)
-start.grid(row = 0,column = 1, padx = 13)
+start = ttk.Button(bFrame,text = 'Start New', command =  StartNew,width = 14, takefocus=False)
+start.grid(row = 0,column = 1, padx = 18)
 
-previous = Button(bFrame,text = 'Previous', command =  Previous,width = 14, takefocus=False)
-previous.grid(row = 0,column = 2, padx = 13)
+previous = ttk.Button(bFrame,text = 'Previous', command =  Previous,width = 14, takefocus=False)
+previous.grid(row = 0,column = 2, padx = 18)
 
-nexst = Button(bFrame,text = 'Next', command =  Next,width = 14, takefocus=False)
-nexst.grid(row = 0,column = 4, padx = 13)
+nexst = ttk.Button(bFrame,text = 'Next', command =  Next,width = 14, takefocus=False)
+nexst.grid(row = 0,column = 4, padx = 18)
 root.mainloop()
