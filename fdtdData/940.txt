@@ -1,0 +1,12 @@
+### Design parameters corresponding to 940.xls ###
+
+Shape: Cylinder
+Material: Silicon
+Cylinder height ~ 600 nm
+Period = 660 nm
+Embedding medium: Refractive index = 1.66
+
+Reference:
+
+[1] Ting. Hu, et al. "Demonstration of a-Si metalenses on a 12-inch glass
+wafer by CMOS-compatible technology, arxiv (2019)
