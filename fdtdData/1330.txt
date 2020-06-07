@@ -1,0 +1,13 @@
+### Design parameters corresponding to 1330.xls ###
+
+Shape: Cylinder
+Material: Silicon
+Radius varied from: 235 to 270 nm
+Cylinder height = 220 nm
+Period = 660 nm
+Embedding medium: Refractive index = 1.66
+
+Reference:
+
+[1] Decker, Manuel, et al. "High‐efficiency dielectric Huygens’ surfaces." Advanced Optical
+Materials 3.6 (2015): 813-820
