@@ -1,0 +1,13 @@
+
+### Design parameters corresponding to 680.xls ###
+
+Shape: Cylinder
+Material: TiO2 
+Radius varied from: 20 60
+Cylinder height = 600 nm
+Period = 200 nm
+
+Reference:
+
+[1] DZHENFEI LI, et. al. "Efficient dielectric metasurface hologram for
+visual-cryptographic image hiding," Optics Express, 27(14) (2019).
