@@ -4,7 +4,6 @@ Shape: Cylinder
 Material: Silicon
 Cylinder height ~ 600 nm
 Period = 660 nm
-Embedding medium: Refractive index = 1.66
 
 Reference:
 
