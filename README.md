@@ -24,4 +24,5 @@ Steps: a. Clone the repo.
 
 The source files can be found in the src folder. The main python file of the software is metaOptics.py, which contains all the code for GUI and framework of the software. The metaData.py file contains the FDTD Transmission phase vs varying dimensions for some standard wavelengths. The gdsModule.py file will contain the code that converts the phase profiles in PNG/JPG fromats to metasurface GDSII layouts.
 
+*** Note *** The fdtdData folder contains FDTD transmission phase data for several shapes and wavelengths. You can upload them into MetaOptics and convert your phase masks into metasurface layouts.
 
