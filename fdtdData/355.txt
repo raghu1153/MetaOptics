@@ -1,0 +1,12 @@
+### Design parameters corresponding to 940.xls ###
+
+Shape: Cylinder
+Material: Nb2O5 
+Cylinder height = 430 nm
+Period = 182 nm
+Radius varied from: 30 to 90
+
+Reference:
+
+[1] Hammad Ahmed, et al. "Polarization insensitive all-dielectric metasurfaces for the ultraviolet domain." 
+Optical Materials Express 10.4 (2020): 1083-1091.

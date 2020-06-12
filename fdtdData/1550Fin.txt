@@ -1,0 +1,13 @@
+### Design parameters corresponding to 1550Fin.xls ###
+
+Shape: Fin 
+Material: Silicon
+Height: 920 nm
+Width: 190 nm
+Length: 445 nm
+Period: 620
+
+Reference
+:
+[1] Hammad Ahmed, et al. "Phase engineering with all-dielectric metasurfaces for focused-optical-vortex (FOV) beams with high cross-polarization efficiency."
+Optical Materials Express 10.2 (2020): 434-448.
