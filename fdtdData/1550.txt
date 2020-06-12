@@ -1,0 +1,11 @@
+### Design parameters corresponding to 940.xls ###
+
+Shape: Cylinder
+Material: Silicon
+Cylinder height = 700 nm
+Period = 600 nm
+Radius varied: 60 to 260
+
+Reference:
+ 
+[1] Yunxuan Wei, et al. "Compact Optical Polarization‐Insensitive Zoom Metalens Doublet." Advanced Optical Materials (2020): 2000142.
