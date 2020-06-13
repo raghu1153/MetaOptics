@@ -67,7 +67,7 @@ style.configure('TLabel', foreground='black',background = 'gray95',font = ("Time
 root.title('MetaOptics')
 root.geometry("780x610") #You want the size of the app to be 620x400
 if "nt" == os.name: # For windows
-    root.wm_iconbitmap(resource_path(logo.ico))
+    root.iconbitmap(resource_path('logo.ico'))
 #else:
     #ilogoImg = PhotoImage(file=logo.ico)
     #root.iconphoto('wm', 'iconphoto', root._w, img)
