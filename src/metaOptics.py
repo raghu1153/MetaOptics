@@ -38,7 +38,7 @@ def resource_path(relative_path):
         base_path = os.path.join(sys._MEIPASS, 'data')
     except Exception:
         # sys._MEIPASS is not defined, so use the original path
-        base_path = 'C://Users//raghu//Desktop//MetaOptics//src' #Change this to current working directory where the logo.ico file exists
+        base_path = 'E://myenv2//MetaOptics//src' #Change this to current working directory where the logo.ico file exists
 
     return os.path.join(base_path, relative_path)
 
@@ -723,7 +723,7 @@ def Next():
                 
         def handler():
             global mes
-            fileLoc = tkFileDialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("Supported formats","*.jpg"),("Supported formats","*.png"),("Supported formats","*.jpeg")))
+            fileLoc = tkFileDialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("Supported formats","*.jpg"),("Supported formats","*.png"),("Supported formats","*.jpeg"),("Supported formats", "*.TIFF")))
             if fileLoc == "":
                 nD.state = 2
                 Next()
